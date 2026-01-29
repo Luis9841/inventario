@@ -144,12 +144,8 @@
                 <div class="card p-4">
                     <h4><i class="fas fa-phone-alt"></i> Contacto</h4>
                     <p>
-                        ¿Tienes dudas o quieres hacer un pedido?<br>
-                        Contáctanos directamente.
-                    </p>
-                    <p>
-                        📧 contacto@outlet.com <br>
-                        📞 55 1234 5678
+                        ¿Tienes dudas sobre un producto?<br>
+                        visitanos directamente.
                     </p>
                 </div>
             </div>
