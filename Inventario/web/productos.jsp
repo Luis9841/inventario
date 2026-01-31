@@ -8,9 +8,9 @@
 <!-- ================== CONEXIÓN BD ================== -->
 <sql:setDataSource var="bd"
                    driver="com.mysql.jdbc.Driver"
-                   url="jdbc:mysql://localhost:3306/inventario"
-                   user="root"
-                   password=""/>
+                   url="jdbc:mysql://sql213.infinityfree.com:3306/if0_41026536_inventario_tienda?useSSL=false""
+                   user="if0_41026536"
+                   password="dMrrJr8hl7oOqLI"/>
 
 <!-- ================== CONSULTA ================== -->
 <c:choose>
