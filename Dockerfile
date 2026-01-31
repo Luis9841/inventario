@@ -1,5 +1,5 @@
 # GlassFish simplificado para Render
-FROM openjdk:8-jdk-slim
+FROM openjdk:11-jdk-slim
 
 # Variables
 ENV GLASSFISH_VERSION=5.1.0
@@ -31,4 +31,5 @@ tail -f $GLASSFISH_HOME/glassfish/domains/outlet_domain/logs/server.log' > /star
 EXPOSE 8080
 
 # Comando
+
 CMD ["/start.sh"]
