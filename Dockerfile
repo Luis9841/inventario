@@ -1,35 +1,17 @@
-# GlassFish simplificado para Render
-FROM openjdk:11-jdk-slim
+# Versión CORRECTA para Render - JSP + Tomcat
+FROM tomcat:9.0.85-jre11-temurin-jammy
 
-# Variables
-ENV GLASSFISH_VERSION=5.1.0
-ENV GLASSFISH_HOME=/opt/glassfish5
+# Eliminar apps de ejemplo
+RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Instalar dependencias mínimas
-RUN apt-get update && apt-get install -y wget unzip && rm -rf /var/lib/apt/lists/*
+# Copiar tu aplicación
+COPY Inventario.war /usr/local/tomcat/webapps/ROOT.war
 
-# Descargar GlassFish
-RUN wget -O /tmp/glassfish.zip \
-    https://download.eclipse.org/ee4j/glassfish/glassfish-$GLASSFISH_VERSION.zip \
-    && unzip /tmp/glassfish.zip -d /opt \
-    && rm /tmp/glassfish.zip \
-    && mv /opt/glassfish* $GLASSFISH_HOME
+# Optimizar Tomcat para Render
+ENV CATALINA_OPTS="-Djava.awt.headless=true -Dfile.encoding=UTF-8 -server -Xms256m -Xmx512m"
 
-# Crear dominio SIN contraseña (para auto-inicio)
-RUN $GLASSFISH_HOME/bin/asadmin create-domain --nopassword=true --portbase=8080 outlet_domain
-
-# Copiar aplicación
-COPY Outlet.war $GLASSFISH_HOME/glassfish/domains/outlet_domain/autodeploy/
-
-# Script de inicio simple
-RUN echo '#!/bin/bash\n\
-$GLASSFISH_HOME/bin/asadmin start-domain outlet_domain\n\
-tail -f $GLASSFISH_HOME/glassfish/domains/outlet_domain/logs/server.log' > /start.sh \
-&& chmod +x /start.sh
-
-# Solo exponer puerto 8080 (Render solo maneja uno)
+# Puerto
 EXPOSE 8080
 
-# Comando
-
-CMD ["/start.sh"]
+# Comando de inicio
+CMD ["catalina.sh", "run"]
